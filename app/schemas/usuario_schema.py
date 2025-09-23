@@ -13,16 +13,12 @@ class TipoUsuarioEnum(str, Enum):
 class UsuarioBase(BaseModel):
     nome: Optional[str] = None
     email: Optional[EmailStr] = None
-    telefone: Optional[str] = None
-    cep: Optional[str] = None
     tipo_usuario: Optional[TipoUsuarioEnum] = None
 
 #Classe de criação que obriga a inserção dos campos
 class UsuarioCreate(UsuarioBase):
     nome: str
     email: EmailStr
-    telefone: str
-    cep: str
     tipo_usuario: TipoUsuarioEnum
     senha: str
 
@@ -31,8 +27,6 @@ class UsuarioRead(UsuarioBase):
     id: int
     nome: Optional[str] = None
     email: Optional[EmailStr] = None
-    telefone: Optional[str] = None
-    cep: Optional[str] = None
     tipo_usuario: Optional[TipoUsuarioEnum] = None
     status: Optional[str] = None
 
@@ -43,8 +37,6 @@ class UsuarioRead(UsuarioBase):
 class UsuarioUpdate(BaseModel):
     nome: Optional[str] = None
     email: Optional[EmailStr] = None
-    telefone: Optional[str]= None
-    cep: Optional[str]= None
     tipo_usuario: Optional[TipoUsuarioEnum]= None
     status: Optional[str]= None
 

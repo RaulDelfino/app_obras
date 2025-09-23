@@ -10,8 +10,6 @@ def criar_usuario(db: Session, usuario: UsuarioCreate):
         nome=usuario.nome,
         email=usuario.email,
         senha_hash=senha_hash,
-        telefone=usuario.telefone,
-        cep=usuario.cep,
         tipo_usuario=usuario.tipo_usuario
     )
     db.add(novo_usuario)

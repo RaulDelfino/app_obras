@@ -1,14 +1,39 @@
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, EmailStr, constr
+from datetime import datetime
 from typing import Optional
-from app.models.usuario import TipoUsuarioEnum
 
-class ClienteCreate(BaseModel):
+# ----------- BASE -----------
+class ClienteBase(BaseModel):
+    telefone: str
+    endereco_num: str
+    cep: str
+    cpf: str 
+
+
+# ----------- CREATE -----------
+class ClienteCreate(ClienteBase):
+    # Aqui já criamos também o usuário associado
     nome: str
     email: EmailStr
-    senha: str
-    telefone: Optional[str]
-    cep: Optional[str]
-    cpf: str
-    endereco_num: Optional[int]
-    tipo_usuario: TipoUsuarioEnum = TipoUsuarioEnum.cliente  # fixo como cliente
-    status: Optional[str] = "ativo"
+    senha: str   # senha em texto plano, vai virar hash depois
+
+
+# ----------- UPDATE -----------
+class ClienteUpdate(BaseModel):
+    telefone: Optional[str] = None
+    endereco_num: Optional[str] = None
+    cep: Optional[str] = None
+    # cpf não costuma ser editável
+    status: Optional[str] = None
+
+
+# ----------- READ -----------
+class ClienteRead(ClienteBase):
+    cliente_id: int
+    nome: str
+    email: EmailStr
+    data_cadastro: datetime
+    status: str
+
+    class Config:
+        from_attributes = True 

@@ -9,7 +9,7 @@ app = FastAPI(title="API do TCC")
 
 
 app.include_router(usuario_routes.router, prefix="/usuarios", tags=["Usuários"])
-app.include_router(clientes_routes.router, prefix="/clentes", tags=["Clientes"])
+#app.include_router(clientes_routes.router, prefix="/clentes", tags=["Clientes"])
 
 # app.include_router(usuario_routes.router)
 
