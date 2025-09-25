@@ -18,4 +18,5 @@ class Usuario(Base):
     tipo_usuario = Column(Enum(TipoUsuarioEnum), nullable=False)
     data_cadastro = Column(DateTime, default=datetime.utcnow)
     status = Column(String(20), default="ativo")    
-    #cliente = relationship("UsuarioCliente", back_populates="usuario", uselist=False)
+    cliente = relationship("Cliente", back_populates="usuario", uselist=False)
+    profissional = relationship("Profissional", back_populates="usuario", uselist=False)

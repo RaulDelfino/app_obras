@@ -1,39 +1,63 @@
 from pydantic import BaseModel, EmailStr, constr
 from datetime import datetime
 from typing import Optional
+from pydantic import BaseModel, EmailStr
+from typing import Optional
+from datetime import datetime
+from enum import Enum
+
+# Enum para tipo de usuário
+class TipoUsuarioEnum(str, Enum):
+    cliente = "cliente"
+    profissional = "profissional"
+
+# ----------- USUÁRIO EMBUTIDO -----------
+class UsuarioEmbedded(BaseModel):
+    id: int
+    nome: str
+    email: EmailStr
+    senha_hash: str
+    tipo_usuario: TipoUsuarioEnum
+    data_cadastro: Optional[datetime]
+    status: str
+
+    class Config:
+        from_attributes = True
 
 # ----------- BASE -----------
 class ClienteBase(BaseModel):
-    telefone: str
-    endereco_num: str
-    cep: str
-    cpf: str 
-
+    telefone: Optional[str] = None
+    cpf: Optional[str] = None
+    cep: Optional[str] = None
+    num_endereco: Optional[str] = None
+    estrelas: Optional[int] = None
 
 # ----------- CREATE -----------
 class ClienteCreate(ClienteBase):
-    # Aqui já criamos também o usuário associado
     nome: str
     email: EmailStr
-    senha: str   # senha em texto plano, vai virar hash depois
-
+    senha: str
+    telefone: str
+    cpf: str
+    cep: str
+    num_endereco: str
+    estrelas: Optional[int] = None
 
 # ----------- UPDATE -----------
 class ClienteUpdate(BaseModel):
     telefone: Optional[str] = None
-    endereco_num: Optional[str] = None
+    cpf: Optional[str] = None
     cep: Optional[str] = None
-    # cpf não costuma ser editável
-    status: Optional[str] = None
+    num_endereco: Optional[str] = None
+    estrelas: Optional[int] = None
 
+    class Config:
+        from_attributes = True
 
 # ----------- READ -----------
 class ClienteRead(ClienteBase):
     cliente_id: int
-    nome: str
-    email: EmailStr
-    data_cadastro: datetime
-    status: str
+    usuario: UsuarioEmbedded  # Dados do usuário vinculados
 
     class Config:
-        from_attributes = True 
+        from_attributes = True
