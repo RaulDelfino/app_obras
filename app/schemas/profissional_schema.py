@@ -21,6 +21,15 @@ class UsuarioEmbedded(BaseModel):
     class Config:
         from_attributes = True
 
+class CategoriaEmbedded(BaseModel):
+    id: int 
+    nome : str
+    descricao: str
+    
+    class Config:
+        from_attributes = True
+
+
 # ----------- BASE -----------
 class ProfissionalBase(BaseModel):
     telefone: Optional[str] = None
@@ -28,6 +37,8 @@ class ProfissionalBase(BaseModel):
     cep: Optional[str] = None
     num_endereco: Optional[str] = None
     estrelas: Optional[int] = None
+    categoria_id: Optional[int] = None  # 🔗 nova referência
+    orcamento: Optional[int] = None
 
 # ----------- CREATE -----------
 class ProfissionalCreate(ProfissionalBase):
@@ -39,6 +50,8 @@ class ProfissionalCreate(ProfissionalBase):
     cep: str
     num_endereco: str
     estrelas: Optional[int] = None
+    categoria_id: int 
+    orcamento: Optional[int] = None
 
 # ----------- UPDATE -----------
 class ProfissionalUpdate(BaseModel):
@@ -47,6 +60,7 @@ class ProfissionalUpdate(BaseModel):
     cep: Optional[str] = None
     num_endereco: Optional[str] = None
     estrelas: Optional[int] = None
+    orcamento: Optional[int] = None
 
     class Config:
         from_attributes = True
@@ -55,6 +69,7 @@ class ProfissionalUpdate(BaseModel):
 class ProfissionalRead(ProfissionalBase):
     prof_id: int
     usuario: UsuarioEmbedded
+    categoria: Optional[CategoriaEmbedded]
 
     class Config:
         from_attributes = True

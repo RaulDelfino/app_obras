@@ -1,6 +1,7 @@
 from sqlalchemy import Column, Integer, String,ForeignKey #usar atributos do SQL
 from sqlalchemy.orm import relationship
 from app.database.session import Base
+from app.models.obra import Obra
 
 class Cliente(Base):
     __tablename__ = "clientes"
@@ -13,3 +14,4 @@ class Cliente(Base):
     estrelas = Column(Integer)
 
     usuario = relationship("Usuario", back_populates="cliente")
+    obras = relationship("Obra", back_populates="cliente")
