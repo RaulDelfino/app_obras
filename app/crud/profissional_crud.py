@@ -30,7 +30,7 @@ def criar_profissional(db: Session, profissional: ProfissionalCreate):
         num_endereco=profissional.num_endereco,
         estrelas=profissional.estrelas,
         categoria_id=profissional.categoria_id,
-        orçamento = profissional.orcamento
+        orcamento = profissional.orcamento
     )
     db.add(novo_profissional)
     db.commit()
